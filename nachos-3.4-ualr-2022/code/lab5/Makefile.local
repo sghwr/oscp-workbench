@@ -21,4 +21,9 @@ INCPATH = -I- -I../lab5 -I../threads -I../machine -I../userprog -I../filesys
 DEFINES += -DFILESYS_NEEDED -DFILESYS
 endif
 
+# Lab4/Lab5: Nachos is a 32-bit program; on a file system with 64-bit inode
+# numbers (e.g. XFS, overlayfs) its stat() of a UNIX file fails with
+# EOVERFLOW. Use the 64-bit file interface (stat() becomes stat64()).
+DEFINES += -D_FILE_OFFSET_BITS=64
+
 endif # MAKEFILE_FILESYS_LOCAL
