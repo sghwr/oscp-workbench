@@ -29,6 +29,7 @@
 #define SC_Close	8
 #define SC_Fork		9
 #define SC_Yield	10
+#define SC_PrintInt	11	/* Lab6: print an integer */
 
 #ifndef IN_ASM
 
@@ -122,7 +123,12 @@ void Fork(void (*func)());
 /* Yield the CPU to another runnable thread, whether in this address space 
  * or not. 
  */
-void Yield();		
+void Yield();
+
+/* Lab6: print the integer "number" (in decimal, followed by a newline)
+ * on the Nachos console (standard output).
+ */
+void PrintInt(int number);
 
 #endif /* IN_ASM */
 
