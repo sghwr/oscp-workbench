@@ -29,7 +29,13 @@ SimpleThread(_int which)
     for (num = 0; num < 5; num++) {
 	printf("*** thread %d looped %d times, priority=%d\n",
 	       (int) which, num, currentThread->getPriority());
-        currentThread->Yield();
+	// Lab2: do not Yield after the last line. That Yield would switch
+	// to another thread, and later this thread would have to be
+	// switched back only to leave the loop and Finish, i.e. 2 context
+	// switches without printing anything. Finish() itself gives up
+	// the CPU, so the last Yield is pure overhead.
+	if (num < 5 - 1)
+            currentThread->Yield();
     }
 }
 
