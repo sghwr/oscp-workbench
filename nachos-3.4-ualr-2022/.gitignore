@@ -1,0 +1,19 @@
+# ---- 构建产物：由 make 生成，不进版本库 ----
+# 各模块的 arch/<平台>/{bin,objects,depends}/ 下的内容；只保留占位文件 .gitkeep，
+# 因为 Makefile 不会自动创建这些目录
+**/arch/*/*/*
+!**/arch/*/*/.gitkeep
+
+# make 生成的指向 arch/.../bin 的符号链接
+/code/*/nachos
+/code/test/*.noff
+/code/test/*.flat
+/code/test/*.coff
+/code/bin/coff2noff
+/code/bin/coff2flat
+
+# ---- 运行时文件 ----
+DISK
+SWAP*
+REFSTR*
+core
