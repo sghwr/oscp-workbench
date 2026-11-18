@@ -53,7 +53,10 @@ Nachos 只能在 **x86 Linux** 上编译运行，本机（Windows）只用来存
 | 6 | 系统调用与多道用户程序 | `AddrSpace::Print`；`Exec()`（在新地址空间运行，不覆盖调用者）；新系统调用 `PrintInt()`；用户程序 `test/exec.c`、`test/halt2.c` | Fork/Exec 与写时复制 | — |
 | 7 | 虚拟内存 | 每进程固定 5 帧、局部置换、纯按需调页；置换算法用 LRU/FIFO/二次机会等（不能用随机）；Statistics 输出页故障次数和写回次数；用 `test/sort.c` 测试 | 不同算法的 user ticks 是否一致；如何统计 OPT 的页故障数 | Lab6 |
 
-进度：☐ Lab1 ☐ Lab2 ☐ Lab3 ☐ Lab4 ☐ Lab5 ☐ Lab6 ☐ Lab7
+进度（代码均已完成并与参考程序对比验证，报告待写）：☐ Lab1 报告 ☑ Lab2 ☑ Lab3 ☑ Lab4 ☑ Lab5 ☑ Lab6 ☑ Lab7
+
+每个实验的讲解（实现思路、改动说明、思考题答案、测试数据）在 `docs/labN-notes.md`，可直接作为报告素材：
+[Lab2](docs/lab2-notes.md) · [Lab3](docs/lab3-notes.md) · [Lab4](docs/lab4-notes.md) · [Lab5](docs/lab5-notes.md) · [Lab6](docs/lab6-notes.md) · [Lab7](docs/lab7-notes.md)
 
 ## 验收测试命令（来自各 readme）
 
