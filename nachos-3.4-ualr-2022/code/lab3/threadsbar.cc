@@ -7,6 +7,8 @@
 //
 //	Version 1: exactly the "Barrier solution" of The Little Book of
 //	Semaphores, section 3.6.4 (mutex + count + turnstile).
+//	Version 2: only the thread whose increment made count reach
+//	N_THREADS is the last one (see BarThread).
 //
 //	Run with:  ./nachos -rs <seed>
 //	(-rs starts a timer that interrupts the running thread at random
@@ -36,13 +38,24 @@ Semaphore *barrier;		// the turnstile, initially 0 (locked)
 void
 BarThread(_int which)
 {
+    int arrived;		// value of count right after *my* increment
+
     printf("Thread %d rendezvous\n", (int) which);
 
+    // Version 2: remember the value of count while still holding the
+    // mutex. In version 1, "if (count == N_THREADS)" read count *after*
+    // mutex->V(). mutex->V() re-enables interrupts, so the -rs timer can
+    // preempt the thread right there; if it only runs again after the
+    // other threads have arrived, it reads count == N_THREADS too and
+    // also believes it is the last one. "arrived" is a local variable
+    // (on this thread's own stack), so nobody else can change it, and
+    // exactly one thread sees arrived == N_THREADS.
     mutex->P();
     count = count + 1;
+    arrived = count;
     mutex->V();
 
-    if (count == N_THREADS) {		// NOTE: reads count outside mutex
+    if (arrived == N_THREADS) {
 	printf("Thread %d is the last\n", (int) which);
 	barrier->V();
     }
