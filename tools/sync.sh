@@ -13,4 +13,8 @@ cd "$ROOT"
 git ls-files -z --cached --others --exclude-standard -- nachos-3.4-ualr-2022 \
   | tar czf - --null -T - \
   | ssh "$HOST" 'mkdir -p /root/oscp && tar xzf - -C /root/oscp --no-same-owner'
+# Windows 磁盘上的文件没有可执行位，tar 覆盖后远端会丢失 x 权限；
+# 按 git 索引里记录的 100755 模式恢复(参考程序 n2..n7 等)
+git ls-files -s -- nachos-3.4-ualr-2022 | awk '$1 == "100755" { print $4 }' \
+  | ssh "$HOST" 'cd /root/oscp && xargs -r chmod +x'
 echo "已同步到 $HOST:/root/oscp/nachos-3.4-ualr-2022"
