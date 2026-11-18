@@ -16,6 +16,8 @@
 │   ├── 课件/        各专题 PPT；“lab2-lab7目录下所需的源码文件 -2022.xlsx”
 │   ├── 部分教程/    张鸿烈《指导教程》、Little Book of Semaphores 等
 │   └── 其他参考资料/
+├── tools/           setup_server.sh（一键搭建远端环境）、stat64shim.c（大 inode 垫片）
+├── docs/            env-setup-log.md（环境搭建记录 / Lab1 素材）
 ├── nachos-3.4-ualr-2022/   （计划）工作代码的本地副本，从远端服务器同步回来
 └── reports/                （计划）实验报告 docx
 ```
@@ -31,7 +33,11 @@ Nachos 只能在 **x86 Linux** 上编译运行，本机（Windows）只用来存
 | MIPS 交叉编译器 | 用 `gcc-2.8.1-mips.tar.gz`，解压到 `/usr/local/mips`（`code/Makefile.dep` 里写死了 `GCCDIR = /usr/local/mips/bin/decstation-ultrix-`）。只有编译 `code/test` 下的用户程序时才需要 |
 | 调试 | gdb（需要安装） |
 
-环境状态：☐ 32 位编译库 ☐ gdb ☐ MIPS 交叉编译器 ☐ 源码已上传并编译通过
+环境状态（2026-11-18）：☑ 32 位编译库 ☑ gdb ☑ MIPS 交叉编译器 ☑ 基础模块（bin/threads/userprog/filesys/network/test）编译通过 ☑ 参考程序 n2–n7 验证通过
+
+- **换新服务器后一键重建**：在仓库根目录运行 `tools/setup_server.sh <ssh别名>`。
+- **详细记录**：版本、遇到的问题和解决方法、参考程序的验证结果见 [docs/env-setup-log.md](docs/env-setup-log.md)，可作为 Lab1 报告素材。
+- **AutoDL 容器的特殊问题**：文件系统的 inode 号超过 32 位，32 位老程序调用 `stat()` 会报 EOVERFLOW。脚本已为 MIPS 工具链自动装好垫片；Lab4/5 自己的代码需要另外处理，见 AGENTS.md。
 
 ## 七个实验
 

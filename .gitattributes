@@ -1,0 +1,10 @@
+# 统一使用 LF 换行：脚本、Makefile、.s 汇编等要在 Linux 上运行，CRLF 会导致出错
+* text=auto eol=lf
+
+*.docx binary
+*.doc  binary
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.gz   binary
+*.zip  binary

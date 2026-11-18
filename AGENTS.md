@@ -17,6 +17,11 @@
 - **不要在 Windows 上解压源码包后再上传**：源码 tar 包里有符号链接（如 `test/*.noff`、`bin/coff2noff`），在 Windows 上会创建失败。要把 `.tar.gz` 原样传到服务器上再解压。
 - **工作目录约定**：远端是 `/root/oscp/nachos-3.4-ualr-2022/`，本机副本是 `操作系统课设/nachos-3.4-ualr-2022/`。
 - **服务器是临时的**：每完成一个阶段，就把远端代码打成 tar 包拉回本机，例如 `ssh oscp-temp 'tar czf - -C /root/oscp nachos-3.4-ualr-2022' > backup.tgz`。
+- **重建环境**：换新服务器时，在本机仓库根目录运行 `tools/setup_server.sh <别名>`。问题记录见 `docs/env-setup-log.md`。
+- **大 inode 问题**：AutoDL 容器的 inode 号超过 32 位，32 位程序调用 `stat()` 会返回 EOVERFLOW。
+  - MIPS 工具链：已用 `/usr/local/mips/bin` 里的包装器加 LD_PRELOAD 垫片解决，正常调用即可。
+  - 参考程序 `n4*`、`n5`：用 `-cp` 时要加上 `LD_PRELOAD=/usr/local/mips/lib/libstat64shim.so`，否则会报 `stat error`，修改时间显示为 1970。
+  - **我们自己的 Lab4/5 代码**：在 `labN/Makefile.local` 里加 `DEFINES += -D_FILE_OFFSET_BITS=64`（已验证有效），不要依赖垫片。
 - **不要写入任何凭据**：不要把密码、密钥或私人信息写进仓库文件、报告或命令历史。
 
 ## 3. 代码修改规则
